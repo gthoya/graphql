@@ -13,14 +13,15 @@ import javax.persistence.Table;
 @Entity
 public class Coffee {
     @Id
-    private String cid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long cid;
     private String name;
 
     public Coffee() {
 
     }
 
-    public Coffee(String cid, String name) {
+    public Coffee(Long cid, String name) {
         this.cid = cid;
         this.name = name;
     }

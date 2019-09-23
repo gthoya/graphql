@@ -52,9 +52,9 @@ public class CoffeeProvider implements CoffeeDetails {
 
     private void loadDataIntoHSQL() {
         Stream.of(
-                new Coffee("1", "americano"),
-                new Coffee("2", "caffe latte"),
-                new Coffee("3", "caramel macchiato")
+                new Coffee(1L, "americano"),
+                new Coffee(2L, "caffe latte"),
+                new Coffee(3L, "caramel macchiato")
         ).forEach(coffeeRepository::save);
     }
 

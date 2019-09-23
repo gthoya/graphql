@@ -4,10 +4,10 @@ schema {
 
 type Query {
     coffees: [Coffee]
-    coffee(id: String): Coffee
+    coffee(id: Long!): Coffee
 }
 
 type Coffee {
-    cid: String
+    cid: Long
     name: String
 }
