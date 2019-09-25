@@ -1,7 +1,5 @@
 package com.gthoya.graphql.coffee.provider;
 
-import com.gthoya.graphql.coffee.dao.CoffeeRepository;
-import com.gthoya.graphql.coffee.model.Coffee;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -16,46 +14,38 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
-import java.util.stream.Stream;
 
 @Component
 public class CoffeeProvider implements CoffeeDetails {
-    private final CoffeeRepository coffeeRepository;
     private final CoffeesDataFetcher coffeesDataFetcher;
     private final CoffeeDataFetcher coffeeDataFetcher;
+    private final CoffeeMutationDataFetcher coffeeMutationDataFetcher;
 
     private GraphQL graphQL;
 
-    @Value("classpath:coffees.graphql")
+    @Value("classpath:coffee.graphql")
     private Resource resource;
 
-    public CoffeeProvider(CoffeeRepository coffeeRepository, CoffeesDataFetcher coffeesDataFetcher, CoffeeDataFetcher coffeeDataFetcher) {
-        this.coffeeRepository = coffeeRepository;
+    public CoffeeProvider(CoffeesDataFetcher coffeesDataFetcher, CoffeeDataFetcher coffeeDataFetcher, CoffeeMutationDataFetcher coffeeMutationDataFetcher) {
         this.coffeesDataFetcher = coffeesDataFetcher;
         this.coffeeDataFetcher = coffeeDataFetcher;
+        this.coffeeMutationDataFetcher = coffeeMutationDataFetcher;
     }
 
     @PostConstruct
     private void loadSchema() throws IOException {
-        loadDataIntoHSQL();
-
         File schemaFile = resource.getFile();
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(schemaFile);
         RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
-                .type("Query", typeWiring -> typeWiring
+                .type("Query", typeQuery -> typeQuery
                         .dataFetcher("coffees", coffeesDataFetcher)
                         .dataFetcher("coffee", coffeeDataFetcher))
+                .type("Mutation", typeMutation -> typeMutation
+                        .dataFetcher("addCoffee", coffeeMutationDataFetcher)
+                        .dataFetcher("modifyCoffee", coffeeMutationDataFetcher))
                 .build();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);
         graphQL = GraphQL.newGraphQL(schema).build();
-    }
-
-    private void loadDataIntoHSQL() {
-        Stream.of(
-                new Coffee(1L, "americano"),
-                new Coffee(2L, "caffe latte"),
-                new Coffee(3L, "caramel macchiato")
-        ).forEach(coffeeRepository::save);
     }
 
     @Override
