@@ -1,6 +1,6 @@
 package com.gthoya.graphql.coffee.controller;
 
-import com.gthoya.graphql.coffee.service.CoffeeUseCase;
+import com.gthoya.graphql.coffee.service.CoffeeService;
 import graphql.ExecutionResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/coffees")
 @RestController
 public class CoffeeController {
-    private final CoffeeUseCase coffeeUseCase;
+    private final CoffeeService coffeeService;
 
-    public CoffeeController(CoffeeUseCase coffeeUseCase) {
-        this.coffeeUseCase = coffeeUseCase;
+    public CoffeeController(CoffeeService coffeeService) {
+        this.coffeeService = coffeeService;
     }
 
     @PostMapping
     public ResponseEntity<Object> coffeeByQuery(@RequestBody String query) {
-        ExecutionResult executionResult = coffeeUseCase.execute(query);
+        ExecutionResult executionResult = coffeeService.execute(query);
 
         return new ResponseEntity<>(executionResult, HttpStatus.OK);
     }

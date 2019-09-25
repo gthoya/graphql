@@ -1,5 +1,8 @@
 package com.gthoya.graphql.coffee.provider;
 
+import com.gthoya.graphql.coffee.fetcher.CoffeeDataFetcher;
+import com.gthoya.graphql.coffee.fetcher.CoffeeMutationDataFetcher;
+import com.gthoya.graphql.coffee.fetcher.CoffeesDataFetcher;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;

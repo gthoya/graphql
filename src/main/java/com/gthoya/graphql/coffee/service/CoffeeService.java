@@ -5,10 +5,10 @@ import graphql.ExecutionResult;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CoffeeUseCase {
+public class CoffeeService {
     private final CoffeeDetails coffeeDetails;
 
-    public CoffeeUseCase(CoffeeDetails coffeeDetails) {
+    public CoffeeService(CoffeeDetails coffeeDetails) {
         this.coffeeDetails = coffeeDetails;
     }
 

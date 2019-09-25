@@ -1,4 +1,4 @@
-package com.gthoya.graphql.coffee.provider;
+package com.gthoya.graphql.coffee.fetcher;
 
 import com.gthoya.graphql.coffee.dao.CoffeeRepository;
 import com.gthoya.graphql.coffee.model.Coffee;

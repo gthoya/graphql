@@ -10,10 +10,10 @@ type Coffee {
 
 type Query {
     coffees: [Coffee]
-    coffee(id: Long!): Coffee
+    coffee(id: Long): Coffee
 }
 
 type Mutation {
-    modifyCoffee(id: Long!, name: String): Coffee
+    modifyCoffee(id: Long, name: String): Coffee
     addCoffee(name: String): Coffee
 }
