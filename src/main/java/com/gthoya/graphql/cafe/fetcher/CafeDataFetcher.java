@@ -1,23 +1,23 @@
 package com.gthoya.graphql.cafe.fetcher;
 
-import com.gthoya.graphql.coffee.dao.CoffeeRepository;
-import com.gthoya.graphql.coffee.model.Coffee;
+import com.gthoya.graphql.cafe.dao.CafeRepository;
+import com.gthoya.graphql.cafe.model.Cafe;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CafeDataFetcher implements DataFetcher<Coffee> {
-    private final CoffeeRepository coffeeRepository;
+public class CafeDataFetcher implements DataFetcher<Cafe> {
+    private final CafeRepository cafeRepository;
 
-    public CafeDataFetcher(CoffeeRepository coffeeRepository) {
-        this.coffeeRepository = coffeeRepository;
+    public CafeDataFetcher(CafeRepository cafeRepository) {
+        this.cafeRepository = cafeRepository;
     }
 
     @Override
-    public Coffee get(DataFetchingEnvironment dataFetchingEnvironment) {
-        Long coffeeId = dataFetchingEnvironment.getArgument("coffeeId");
+    public Cafe get(DataFetchingEnvironment dataFetchingEnvironment) {
+        Long cafeId = dataFetchingEnvironment.getArgument("cafeId");
 
-        return coffeeRepository.findByCoffeeId(coffeeId);
+        return cafeRepository.findByCafeId(cafeId);
     }
 }

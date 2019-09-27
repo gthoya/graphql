@@ -6,16 +6,18 @@ import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class MenuDataFetcher implements DataFetcher<Menu> {
+public class MenusDataFetcher implements DataFetcher<List<Menu>> {
     private final MenuRepository menuRepository;
 
-    public MenuDataFetcher(MenuRepository menuRepository) {
+    public MenusDataFetcher(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
 
     @Override
-    public Menu get(DataFetchingEnvironment dataFetchingEnvironment) {
+    public List<Menu> get(DataFetchingEnvironment dataFetchingEnvironment) {
         Long cafeId = dataFetchingEnvironment.getArgument("cafeId");
 
         return menuRepository.findByCafeId(cafeId);

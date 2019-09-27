@@ -1,6 +1,6 @@
 package com.gthoya.graphql.menu.provider;
 
-import com.gthoya.graphql.menu.fetcher.MenuDataFetcher;
+import com.gthoya.graphql.menu.fetcher.MenusDataFetcher;
 import com.gthoya.graphql.menu.fetcher.MenuRemoveDataFetcher;
 import com.gthoya.graphql.menu.fetcher.MenuSaveDataFetcher;
 import graphql.ExecutionResult;
@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Component
 public class MenuProvider implements MenuDetails {
-    private final MenuDataFetcher menuDataFetcher;
+    private final MenusDataFetcher menusDataFetcher;
     private final MenuSaveDataFetcher menuSaveDataFetcher;
     private final MenuRemoveDataFetcher menuRemoveDataFetcher;
 
@@ -29,8 +29,8 @@ public class MenuProvider implements MenuDetails {
     @Value("classpath:menu.graphql")
     private Resource resource;
 
-    public MenuProvider(MenuDataFetcher menuDataFetcher, MenuSaveDataFetcher menuSaveDataFetcher, MenuRemoveDataFetcher menuRemoveDataFetcher) {
-        this.menuDataFetcher = menuDataFetcher;
+    public MenuProvider(MenusDataFetcher menusDataFetcher, MenuSaveDataFetcher menuSaveDataFetcher, MenuRemoveDataFetcher menuRemoveDataFetcher) {
+        this.menusDataFetcher = menusDataFetcher;
         this.menuSaveDataFetcher = menuSaveDataFetcher;
         this.menuRemoveDataFetcher = menuRemoveDataFetcher;
     }
@@ -41,7 +41,7 @@ public class MenuProvider implements MenuDetails {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(schemaFile);
         RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeQuery -> typeQuery
-                        .dataFetcher("menus", menuDataFetcher))
+                        .dataFetcher("menus", menusDataFetcher))
                 .type("Mutation", typeMutation -> typeMutation
                         .dataFetcher("addMenu", menuSaveDataFetcher)
                         .dataFetcher("removeMenu", menuRemoveDataFetcher))

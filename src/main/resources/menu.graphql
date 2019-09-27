@@ -14,8 +14,10 @@ type Coffee {
 }
 
 type Menu {
-    cafe(cafeId: Long): Cafe
-    coffees(coffeeId: Long): [Coffee]
+    cafeId: Long
+    coffeeId: Long
+    cafe: Cafe
+    coffee: Coffee
 }
 
 type Query {
