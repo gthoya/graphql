@@ -4,16 +4,16 @@ schema {
 }
 
 type Coffee {
-    cid: Long
-    name: String
+    coffeeId: Long
+    coffeeName: String
 }
 
 type Query {
     coffees: [Coffee]
-    coffee(id: Long): Coffee
+    coffee(coffeeId: Long): Coffee
 }
 
 type Mutation {
-    modifyCoffee(id: Long, name: String): Coffee
-    addCoffee(name: String): Coffee
+    modifyCoffee(coffeeId: Long, coffeeName: String): Coffee
+    addCoffee(coffeeName: String): Coffee
 }

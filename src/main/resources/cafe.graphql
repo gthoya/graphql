@@ -1,0 +1,19 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Cafe {
+    cafeId: Long
+    cafeName: String
+}
+
+type Query {
+    cafes: [Cafe]
+    cafe(id: Long): Cafe
+}
+
+type Mutation {
+    modifyCafe(cafeId: Long, cafeName: String): Cafe
+    addCafe(cafeName: String): Cafe
+}

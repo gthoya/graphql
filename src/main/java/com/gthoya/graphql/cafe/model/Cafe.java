@@ -1,4 +1,4 @@
-package com.gthoya.graphql.coffee.model;
+package com.gthoya.graphql.cafe.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +13,11 @@ import javax.persistence.Table;
 @Entity
 @Table
 @NoArgsConstructor
-public class Coffee {
+public class Cafe {
     @Id
     @GeneratedValue
-    private Long coffeeId;
+    private Long cafeId;
 
     @Column
-    private String coffeeName;
+    private String cafeName;
 }

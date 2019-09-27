@@ -1,0 +1,28 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Cafe {
+    cafeId: Long
+    cafeName: String
+}
+
+type Coffee {
+    coffeeId: Long
+    coffeeName: String
+}
+
+type Menu {
+    cafe(cafeId: Long): Cafe
+    coffees(coffeeId: Long): [Coffee]
+}
+
+type Query {
+    menus(cafeId: Long): [Menu]
+}
+
+type Mutation {
+    deleteMenu(cafeId: Long, coffeeId: Long): Menu
+    addMenu(cafeId: Long, coffeeId: Long): Menu
+}

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class CoffeeMutationDataFetcher implements DataFetcher<Coffee> {
+public class CoffeeSaveDataFetcher implements DataFetcher<Coffee> {
     private final CoffeeRepository coffeeRepository;
 
-    public CoffeeMutationDataFetcher(CoffeeRepository coffeeRepository) {
+    public CoffeeSaveDataFetcher(CoffeeRepository coffeeRepository) {
         this.coffeeRepository = coffeeRepository;
     }
 
@@ -19,11 +19,11 @@ public class CoffeeMutationDataFetcher implements DataFetcher<Coffee> {
     @Transactional
     public Coffee get(DataFetchingEnvironment dataFetchingEnvironment) {
         Coffee coffee = new Coffee();
-        if (dataFetchingEnvironment.getArgument("id") != null) {
-            coffee.setCid(dataFetchingEnvironment.getArgument("id"));
+        if (dataFetchingEnvironment.getArgument("coffeeId") != null) {
+            coffee.setCoffeeId(dataFetchingEnvironment.getArgument("coffeeId"));
         }
 
-        coffee.setName(dataFetchingEnvironment.getArgument("name"));
+        coffee.setCoffeeName(dataFetchingEnvironment.getArgument("coffeeName"));
 
         return coffeeRepository.save(coffee);
     }

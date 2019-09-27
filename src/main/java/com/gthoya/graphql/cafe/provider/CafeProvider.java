@@ -1,8 +1,8 @@
-package com.gthoya.graphql.coffee.provider;
+package com.gthoya.graphql.cafe.provider;
 
-import com.gthoya.graphql.coffee.fetcher.CoffeeDataFetcher;
-import com.gthoya.graphql.coffee.fetcher.CoffeeSaveDataFetcher;
-import com.gthoya.graphql.coffee.fetcher.CoffeesDataFetcher;
+import com.gthoya.graphql.cafe.fetcher.CafeDataFetcher;
+import com.gthoya.graphql.cafe.fetcher.CafeSaveDataFetcher;
+import com.gthoya.graphql.cafe.fetcher.CafesDataFetcher;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -19,21 +19,21 @@ import java.io.File;
 import java.io.IOException;
 
 @Component
-public class CoffeeProvider implements CoffeeDetails {
-    private final CoffeesDataFetcher coffeesDataFetcher;
-    private final CoffeeDataFetcher coffeeDataFetcher;
-    private final CoffeeSaveDataFetcher coffeeSaveDataFetcher;
+public class CafeProvider implements CafeDetails {
+    private final CafesDataFetcher cafesDataFetcher;
+    private final CafeDataFetcher cafeDataFetcher;
+    private final CafeSaveDataFetcher cafeSaveDataFetcher;
+
+    public CafeProvider(CafesDataFetcher cafesDataFetcher, CafeDataFetcher cafeDataFetcher, CafeSaveDataFetcher cafeSaveDataFetcher) {
+        this.cafesDataFetcher = cafesDataFetcher;
+        this.cafeDataFetcher = cafeDataFetcher;
+        this.cafeSaveDataFetcher = cafeSaveDataFetcher;
+    }
 
     private GraphQL graphQL;
 
-    @Value("classpath:coffee.graphql")
+    @Value("classpath:cafe.graphql")
     private Resource resource;
-
-    public CoffeeProvider(CoffeesDataFetcher coffeesDataFetcher, CoffeeDataFetcher coffeeDataFetcher, CoffeeSaveDataFetcher coffeeSaveDataFetcher) {
-        this.coffeesDataFetcher = coffeesDataFetcher;
-        this.coffeeDataFetcher = coffeeDataFetcher;
-        this.coffeeSaveDataFetcher = coffeeSaveDataFetcher;
-    }
 
     @PostConstruct
     private void loadSchema() throws IOException {
@@ -41,11 +41,11 @@ public class CoffeeProvider implements CoffeeDetails {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(schemaFile);
         RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeQuery -> typeQuery
-                        .dataFetcher("coffees", coffeesDataFetcher)
-                        .dataFetcher("coffee", coffeeDataFetcher))
+                        .dataFetcher("cafes", cafesDataFetcher)
+                        .dataFetcher("cafe", cafeDataFetcher))
                 .type("Mutation", typeMutation -> typeMutation
-                        .dataFetcher("addCoffee", coffeeSaveDataFetcher)
-                        .dataFetcher("modifyCoffee", coffeeSaveDataFetcher))
+                        .dataFetcher("addCafe", cafeSaveDataFetcher)
+                        .dataFetcher("modifyCafe", cafeSaveDataFetcher))
                 .build();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);
         graphQL = GraphQL.newGraphQL(schema).build();

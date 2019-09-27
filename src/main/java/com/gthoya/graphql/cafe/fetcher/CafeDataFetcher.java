@@ -1,16 +1,16 @@
-package com.gthoya.graphql.coffee.fetcher;
+package com.gthoya.graphql.cafe.fetcher;
 
-import com.gthoya.graphql.coffee.model.Coffee;
 import com.gthoya.graphql.coffee.dao.CoffeeRepository;
+import com.gthoya.graphql.coffee.model.Coffee;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CoffeeDataFetcher implements DataFetcher<Coffee> {
+public class CafeDataFetcher implements DataFetcher<Coffee> {
     private final CoffeeRepository coffeeRepository;
 
-    public CoffeeDataFetcher(CoffeeRepository coffeeRepository) {
+    public CafeDataFetcher(CoffeeRepository coffeeRepository) {
         this.coffeeRepository = coffeeRepository;
     }
 
