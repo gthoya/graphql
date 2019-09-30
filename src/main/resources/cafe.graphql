@@ -3,14 +3,26 @@ schema {
     mutation: Mutation
 }
 
+type Coffee {
+    coffeeId: Long
+    coffeeName: String
+}
+
+type Menu {
+    cafeId: Long
+    coffeeId: Long
+    coffee: Coffee
+}
+
 type Cafe {
     cafeId: Long
     cafeName: String
+    menus: [Menu]
 }
 
 type Query {
     cafes: [Cafe]
-    cafe(id: Long): Cafe
+    cafe(cafeId: Long): Cafe
 }
 
 type Mutation {

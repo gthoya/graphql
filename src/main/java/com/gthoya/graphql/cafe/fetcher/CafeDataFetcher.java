@@ -18,6 +18,8 @@ public class CafeDataFetcher implements DataFetcher<Cafe> {
     public Cafe get(DataFetchingEnvironment dataFetchingEnvironment) {
         Long cafeId = dataFetchingEnvironment.getArgument("cafeId");
 
+        System.out.println("cafeDataFetcher");
+
         return cafeRepository.findByCafeId(cafeId);
     }
 }
