@@ -44,7 +44,7 @@ public class MenuProvider implements MenuDetails {
                         .dataFetcher("menus", menusDataFetcher))
                 .type("Mutation", typeMutation -> typeMutation
                         .dataFetcher("addMenu", menuSaveDataFetcher)
-                        .dataFetcher("removeMenu", menuRemoveDataFetcher))
+                        .dataFetcher("deleteMenu", menuRemoveDataFetcher))
                 .build();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);
         graphQL = GraphQL.newGraphQL(schema).build();
