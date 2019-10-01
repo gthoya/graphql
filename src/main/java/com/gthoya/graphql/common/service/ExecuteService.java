@@ -1,7 +1,7 @@
-package com.gthoya.graphql.menu.provider;
+package com.gthoya.graphql.common.service;
 
 import graphql.ExecutionResult;
 
-public interface MenuDetails {
+public interface ExecuteService {
     ExecutionResult execute(String query);
 }

@@ -1,7 +1,7 @@
-package com.gthoya.graphql.cafe.provider;
+package com.gthoya.graphql.common.service;
 
 import graphql.ExecutionResult;
 
-public interface CafeDetails {
+public interface ExecuteProvider {
     ExecutionResult execute(String query);
 }

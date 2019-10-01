@@ -1,8 +1,9 @@
-package com.gthoya.graphql.cafe.provider;
+package com.gthoya.graphql.cafe.service;
 
 import com.gthoya.graphql.cafe.fetcher.CafeDataFetcher;
 import com.gthoya.graphql.cafe.fetcher.CafeSaveDataFetcher;
 import com.gthoya.graphql.cafe.fetcher.CafesDataFetcher;
+import com.gthoya.graphql.common.service.ExecuteProvider;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -18,8 +19,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 
-@Component
-public class CafeProvider implements CafeDetails {
+@Component("cafeProvider")
+public class CafeProvider implements ExecuteProvider {
     private final CafesDataFetcher cafesDataFetcher;
     private final CafeDataFetcher cafeDataFetcher;
     private final CafeSaveDataFetcher cafeSaveDataFetcher;

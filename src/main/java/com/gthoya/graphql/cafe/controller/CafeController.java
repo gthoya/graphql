@@ -1,7 +1,8 @@
 package com.gthoya.graphql.cafe.controller;
 
-import com.gthoya.graphql.cafe.service.CafeService;
+import com.gthoya.graphql.common.service.ExecuteService;
 import graphql.ExecutionResult;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/cafes")
 @RestController
 public class CafeController {
-    private final CafeService cafeService;
+    private final ExecuteService cafeService;
 
-    public CafeController(CafeService cafeService) {
+    public CafeController(@Qualifier("cafeService") ExecuteService cafeService) {
         this.cafeService = cafeService;
     }
 

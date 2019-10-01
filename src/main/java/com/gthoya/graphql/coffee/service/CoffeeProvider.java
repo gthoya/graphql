@@ -1,8 +1,9 @@
-package com.gthoya.graphql.menu.provider;
+package com.gthoya.graphql.coffee.service;
 
-import com.gthoya.graphql.menu.fetcher.MenusDataFetcher;
-import com.gthoya.graphql.menu.fetcher.MenuRemoveDataFetcher;
-import com.gthoya.graphql.menu.fetcher.MenuSaveDataFetcher;
+import com.gthoya.graphql.coffee.fetcher.CoffeeDataFetcher;
+import com.gthoya.graphql.coffee.fetcher.CoffeeSaveDataFetcher;
+import com.gthoya.graphql.coffee.fetcher.CoffeesDataFetcher;
+import com.gthoya.graphql.common.service.ExecuteProvider;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
@@ -18,21 +19,21 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 
-@Component
-public class MenuProvider implements MenuDetails {
-    private final MenusDataFetcher menusDataFetcher;
-    private final MenuSaveDataFetcher menuSaveDataFetcher;
-    private final MenuRemoveDataFetcher menuRemoveDataFetcher;
+@Component("coffeeProvider")
+public class CoffeeProvider implements ExecuteProvider {
+    private final CoffeesDataFetcher coffeesDataFetcher;
+    private final CoffeeDataFetcher coffeeDataFetcher;
+    private final CoffeeSaveDataFetcher coffeeSaveDataFetcher;
 
     private GraphQL graphQL;
 
-    @Value("classpath:menu.graphql")
+    @Value("classpath:coffee.graphql")
     private Resource resource;
 
-    public MenuProvider(MenusDataFetcher menusDataFetcher, MenuSaveDataFetcher menuSaveDataFetcher, MenuRemoveDataFetcher menuRemoveDataFetcher) {
-        this.menusDataFetcher = menusDataFetcher;
-        this.menuSaveDataFetcher = menuSaveDataFetcher;
-        this.menuRemoveDataFetcher = menuRemoveDataFetcher;
+    public CoffeeProvider(CoffeesDataFetcher coffeesDataFetcher, CoffeeDataFetcher coffeeDataFetcher, CoffeeSaveDataFetcher coffeeSaveDataFetcher) {
+        this.coffeesDataFetcher = coffeesDataFetcher;
+        this.coffeeDataFetcher = coffeeDataFetcher;
+        this.coffeeSaveDataFetcher = coffeeSaveDataFetcher;
     }
 
     @PostConstruct
@@ -41,10 +42,11 @@ public class MenuProvider implements MenuDetails {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(schemaFile);
         RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeQuery -> typeQuery
-                        .dataFetcher("menus", menusDataFetcher))
+                        .dataFetcher("coffees", coffeesDataFetcher)
+                        .dataFetcher("coffee", coffeeDataFetcher))
                 .type("Mutation", typeMutation -> typeMutation
-                        .dataFetcher("addMenu", menuSaveDataFetcher)
-                        .dataFetcher("deleteMenu", menuRemoveDataFetcher))
+                        .dataFetcher("addCoffee", coffeeSaveDataFetcher)
+                        .dataFetcher("modifyCoffee", coffeeSaveDataFetcher))
                 .build();
         GraphQLSchema schema = new SchemaGenerator().makeExecutableSchema(typeRegistry, wiring);
         graphQL = GraphQL.newGraphQL(schema).build();

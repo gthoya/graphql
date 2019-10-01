@@ -1,18 +1,21 @@
 package com.gthoya.graphql.menu.service;
 
-import com.gthoya.graphql.menu.provider.MenuDetails;
+import com.gthoya.graphql.common.service.ExecuteProvider;
+import com.gthoya.graphql.common.service.ExecuteService;
 import graphql.ExecutionResult;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service
-public class MenuService {
-    private final MenuDetails menuDetails;
+@Service("menuService")
+public class MenuService implements ExecuteService {
+    private final ExecuteProvider menuProvider;
 
-    public MenuService(MenuDetails menuDetails) {
-        this.menuDetails = menuDetails;
+    public MenuService(@Qualifier("menuProvider") ExecuteProvider menuProvider) {
+        this.menuProvider = menuProvider;
     }
 
+    @Override
     public ExecutionResult execute(String query) {
-        return menuDetails.execute(query);
+        return menuProvider.execute(query);
     }
 }
